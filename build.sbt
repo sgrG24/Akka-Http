@@ -12,6 +12,7 @@ lazy val AkkaHTTP = (project in file("."))
     name := "Akka-HTTP",
     version := "1.0.0-SNAPSHOT",
     scalaVersion := "2.12.8",
+    mainClass in assembly := Some("HelloMessage"),
     libraryDependencies ++= Seq(
       // akka streams
       "com.typesafe.akka" %% "akka-stream" % akkaVersion,

@@ -1,5 +1,6 @@
 import akka.actor.{ActorLogging, ActorSystem}
 import akka.http.scaladsl.Http
+import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
 import akka.stream.ActorMaterializer
 import spray.json._
@@ -15,12 +16,7 @@ trait JsonProtocol extends DefaultJsonProtocol {
   implicit val statusFormat = jsonFormat1(Status)
 }
 
-object HelloMessage extends App with JsonProtocol {
-  implicit val system = ActorSystem("HelloMessage")
-  implicit val materializer = ActorMaterializer()
-
-  import system.dispatcher
-
+class HelloMessage extends JsonProtocol {
   val route: Route =
     path("greet" / Segment) { name: String =>
       val person = Message(s"Hello $name")
@@ -42,7 +38,16 @@ object HelloMessage extends App with JsonProtocol {
           )
         )
       }
+}
 
-  Http().bindAndHandle(route, "localhost", 8080)
+object HelloMessage {
+  def main(args: Array[String]): Unit = {
+    implicit val system = ActorSystem("HelloMessage")
+    implicit val materializer = ActorMaterializer()
 
+    import system.dispatcher
+    val route =  new HelloMessage().route
+    Http().bindAndHandle(route, "0.0.0.0", 8080)
+
+  }
 }
