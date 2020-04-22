@@ -1,3 +1,5 @@
 #!/bin/bash 
 
 sbt assembly
+
+cd target/scala-2.12
