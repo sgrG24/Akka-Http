@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
    name: akka-http-app-deployment
 spec:
-   replicas: 1
+   replicas: 3
    template:
          metadata:
             name: akka-http-pod
@@ -11,7 +11,7 @@ spec:
                app: akka-http-app
          spec:
              containers:
-              - image: sagar2405/akka-http-app:6
+              - image: sagar2405/akka-http-app
                 name: akka-http-app
    selector:
          matchLabels:
