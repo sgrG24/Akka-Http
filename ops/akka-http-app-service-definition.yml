@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+     name: akka-http-app-service
+spec:
+     ports:
+       - targetPort: 8080
+         port: 80
+         nodePort: 30011
+     type: NodePort
+     selector:
+         app: akka-http-app

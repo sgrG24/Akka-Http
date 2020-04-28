@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: akka-http-pod
+spec: 
+  containers: 
+    - image: sagar2405/akka-http-app:6
+      name: akka-http-app
